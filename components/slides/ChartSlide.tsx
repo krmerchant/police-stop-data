@@ -11,22 +11,19 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-// Stops by year and ethnicity — pedestrian stops (PEDESTRIAN=1)
-const stopsByYear = [
+// Pedestrian stops (PEDESTRIAN=1) by year + ethnicity — n=131 total
+const pedestrianByYear = [
   { year: "2023", Black: 19, White: 14, "Hispanic/Latino": 4 },
   { year: "2024", Black: 43, White: 7,  "Hispanic/Latino": 3 },
   { year: "2025", Black: 18, White: 5,  "Hispanic/Latino": 1 },
 ];
 
-// Stops by district — count and proportion
-const districtData = [
-  { district: "1D", stops: 11341, pct: 16.3 },
-  { district: "2D", stops: 9293,  pct: 13.3 },
-  { district: "3D", stops: 11177, pct: 16.0 },
-  { district: "4D", stops: 8097,  pct: 11.6 },
-  { district: "5D", stops: 11636, pct: 16.7 },
-  { district: "6D", stops: 9019,  pct: 12.9 },
-  { district: "7D", stops: 9227,  pct: 13.2 },
+// Traffic stops (VEHICLE=1) by year + ethnicity — n=96,526 total
+// 2025 is partial-year data
+const trafficByYear = [
+  { year: "2023", Black: 23865, White: 6741, "Hispanic/Latino": 3682, Asian: 780 },
+  { year: "2024", Black: 22424, White: 4916, "Hispanic/Latino": 3814, Asian: 503 },
+  { year: "2025", Black: 13475, White: 2664, "Hispanic/Latino": 2067, Asian: 256 },
 ];
 
 const TOOLTIP_STYLE = {
@@ -34,42 +31,53 @@ const TOOLTIP_STYLE = {
   labelStyle: { color: "#e4e4e7" },
 };
 
+const BARS = (
+  <>
+    <Bar dataKey="Black"           fill="#6366f1" radius={[4,4,0,0]} />
+    <Bar dataKey="White"           fill="#22d3ee" radius={[4,4,0,0]} />
+    <Bar dataKey="Hispanic/Latino" fill="#f59e0b" radius={[4,4,0,0]} />
+    <Bar dataKey="Asian"           fill="#34d399" radius={[4,4,0,0]} />
+  </>
+);
+
 export default function ChartSlide() {
   return (
     <div className="flex flex-col h-full px-12 py-8 gap-6">
       <div>
-        <h2 className="text-3xl font-bold text-white">Pedestrian Stops by Race & Year</h2>
+        <h2 className="text-3xl font-bold text-white">Stops by Race & Year</h2>
         <p className="text-zinc-400 mt-1">
-          Where PEDESTRIAN=1 · counts by ethnicity per year
+          Pedestrian (PEDESTRIAN=1, n=131) vs Traffic (VEHICLE=1, n=96,526) · counts by ethnicity
         </p>
       </div>
 
       <div className="grid grid-cols-2 gap-6 flex-1">
         <div className="bg-zinc-900 rounded-xl p-5 border border-zinc-800 flex flex-col gap-3">
-          <h3 className="text-lg font-semibold text-zinc-200">Stop Count by Ethnicity & Year</h3>
+          <h3 className="text-lg font-semibold text-zinc-200">Pedestrian Stops</h3>
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={stopsByYear}>
+            <BarChart data={pedestrianByYear}>
               <CartesianGrid strokeDasharray="3 3" stroke="#3f3f46" />
               <XAxis dataKey="year" stroke="#71717a" tick={{ fill: "#a1a1aa" }} />
               <YAxis stroke="#71717a" tick={{ fill: "#a1a1aa" }} />
               <Tooltip {...TOOLTIP_STYLE} />
               <Legend wrapperStyle={{ color: "#a1a1aa" }} />
-              <Bar dataKey="Black"           fill="#6366f1" radius={[4,4,0,0]} />
-              <Bar dataKey="White"           fill="#22d3ee" radius={[4,4,0,0]} />
-              <Bar dataKey="Hispanic/Latino" fill="#f59e0b" radius={[4,4,0,0]} />
+              {BARS}
             </BarChart>
           </ResponsiveContainer>
         </div>
 
         <div className="bg-zinc-900 rounded-xl p-5 border border-zinc-800 flex flex-col gap-3">
-          <h3 className="text-lg font-semibold text-zinc-200">Stop Volume by Police District</h3>
+          <h3 className="text-lg font-semibold text-zinc-200">
+            Traffic Stops
+            <span className="ml-2 text-xs font-normal text-zinc-500">* 2025 partial year</span>
+          </h3>
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={districtData} layout="vertical">
+            <BarChart data={trafficByYear}>
               <CartesianGrid strokeDasharray="3 3" stroke="#3f3f46" />
-              <XAxis type="number" stroke="#71717a" tick={{ fill: "#a1a1aa" }} />
-              <YAxis dataKey="district" type="category" stroke="#71717a" tick={{ fill: "#a1a1aa" }} width={32} />
+              <XAxis dataKey="year" stroke="#71717a" tick={{ fill: "#a1a1aa" }} />
+              <YAxis stroke="#71717a" tick={{ fill: "#a1a1aa" }} tickFormatter={(v) => v >= 1000 ? `${v/1000}k` : v} />
               <Tooltip {...TOOLTIP_STYLE} formatter={(v: number) => v.toLocaleString()} />
-              <Bar dataKey="stops" name="Stops" fill="#8b5cf6" radius={[0,4,4,0]} />
+              <Legend wrapperStyle={{ color: "#a1a1aa" }} />
+              {BARS}
             </BarChart>
           </ResponsiveContainer>
         </div>
