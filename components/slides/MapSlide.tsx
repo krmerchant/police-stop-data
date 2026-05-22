@@ -15,9 +15,9 @@ export default function MapSlide() {
   return (
     <div className="flex flex-col h-full px-12 py-8 gap-5">
       <div>
-        <h2 className="text-3xl font-bold text-white">Geographic Data</h2>
+        <h2 className="text-3xl font-bold text-white">Stops by DC Police District</h2>
         <p className="text-zinc-400 mt-1">
-          Global tech hubs — circle size proportional to company count · React-Leaflet
+          Circle size ∝ stop volume · click a district for details · React-Leaflet
         </p>
       </div>
 
