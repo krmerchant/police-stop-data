@@ -15,8 +15,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Tech Slideshow",
-  description: "Next.js + Recharts + React-Leaflet + shadcn/ui",
+  title: "DC Police Stop Analysis",
+  description: "DC MPD stop data 2023–2025",
 };
 
 export default function RootLayout({
