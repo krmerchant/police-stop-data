@@ -75,7 +75,7 @@ export default function ChartSlide() {
               <CartesianGrid strokeDasharray="3 3" stroke="#3f3f46" />
               <XAxis dataKey="year" stroke="#71717a" tick={{ fill: "#a1a1aa" }} />
               <YAxis stroke="#71717a" tick={{ fill: "#a1a1aa" }} tickFormatter={(v) => v >= 1000 ? `${v/1000}k` : v} />
-              <Tooltip {...TOOLTIP_STYLE} formatter={(v: number) => v.toLocaleString()} />
+              <Tooltip {...TOOLTIP_STYLE} formatter={(v) => (typeof v === "number" ? v.toLocaleString() : v)} />
               <Legend wrapperStyle={{ color: "#a1a1aa" }} />
               {BARS}
             </BarChart>

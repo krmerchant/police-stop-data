@@ -72,7 +72,7 @@ export default function TableSlide() {
               <Tooltip
                 contentStyle={{ background: "#18181b", border: "1px solid #3f3f46", borderRadius: 8 }}
                 labelStyle={{ color: "#e4e4e7" }}
-                formatter={(v: number) => [`${v.toFixed(2)}%`, "Arrest rate"]}
+                formatter={(v: unknown) => [`${(v as number).toFixed(2)}%`, "Arrest rate"]}
               />
               <Bar dataKey="rate" radius={[4, 4, 0, 0]}>
                 {arrestRates.map((row) => (

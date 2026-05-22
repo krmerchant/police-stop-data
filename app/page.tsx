@@ -1,5 +1,9 @@
-import { redirect } from "next/navigation";
+"use client";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  redirect("/presentation?slide=0");
+  const router = useRouter();
+  useEffect(() => { router.replace("/presentation?slide=0"); }, [router]);
+  return null;
 }

@@ -28,8 +28,8 @@ const data = [
 const TOOLTIP_STYLE = {
   contentStyle: { background: "#18181b", border: "1px solid #3f3f46", borderRadius: 8 },
   labelStyle: { color: "#e4e4e7" },
-  formatter: (v: number, name: string) => [
-    `${v.toFixed(2)}%`,
+  formatter: (v: unknown, name: unknown) => [
+    `${(v as number).toFixed(2)}%`,
     name === "pSuspicion" ? "P(E | Suspicion)" : "P(E | All stops)",
   ],
 };

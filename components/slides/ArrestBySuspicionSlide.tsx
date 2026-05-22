@@ -73,15 +73,19 @@ export default function ArrestBySuspicionSlide() {
             <Tooltip
               contentStyle={{ background: "#18181b", border: "1px solid #3f3f46", borderRadius: 8 }}
               labelStyle={{ color: "#e4e4e7" }}
-              formatter={(v: number, _: string, props: { payload?: { stops: number; arrests: number } }) => [
-                <span key="rate">
-                  {v.toFixed(2)}%
-                  <span style={{ color: "#71717a", marginLeft: 8, fontSize: 11 }}>
-                    ({props.payload?.arrests} / {props.payload?.stops} stops)
-                  </span>
-                </span>,
-                "Arrest rate",
-              ]}
+              formatter={(v, _name, props) => {
+                const rate = typeof v === "number" ? v.toFixed(2) : String(v);
+                const payload = props?.payload as { stops?: number; arrests?: number } | undefined;
+                return [
+                  <span key="rate">
+                    {rate}%
+                    <span style={{ color: "#71717a", marginLeft: 8, fontSize: 11 }}>
+                      ({payload?.arrests} / {payload?.stops} stops)
+                    </span>
+                  </span>,
+                  "Arrest rate",
+                ];
+              }}
             />
             <ReferenceLine
               y={OVERALL_RATE}
