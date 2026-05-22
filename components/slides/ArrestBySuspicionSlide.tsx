@@ -11,19 +11,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-
-// P(TRAFFIC_ARREST | suspicion stop, ETHNICITY)
-// Suspicion = STOP_REASON_NONTICKET contains "Sus" (n=7,646 total, 406 arrests)
-// "Unknown" and "Multiple" excluded
-const data = [
-  { ethnicity: "Hispanic/Latino", stops: 256,   arrests: 31,  rate: 12.11 },
-  { ethnicity: "Asian",           stops: 22,    arrests: 2,   rate:  9.09 },
-  { ethnicity: "Other",           stops: 15,    arrests: 1,   rate:  6.67 },
-  { ethnicity: "White",           stops: 176,   arrests: 10,  rate:  5.68 },
-  { ethnicity: "Black",           stops: 6826,  arrests: 352, rate:  5.16 },
-];
-
-const OVERALL_RATE = 5.31;
+import json from "@/public/data/arrest_by_suspicion.json";
 
 const BAR_COLORS: Record<string, string> = {
   "Hispanic/Latino": "#f59e0b",
@@ -50,26 +38,17 @@ export default function ArrestBySuspicionSlide() {
           P(Traffic Arrest | Suspicion Stop*)
         </h2>
         <p className="text-zinc-400 mt-1">
-          406 arrests across 7,646 suspicion stops · overall rate{" "}
-          <span className="text-zinc-200 font-semibold">{OVERALL_RATE}%</span>
+          {json.total_arrests} arrests across {json.total_suspicion_stops.toLocaleString()} suspicion stops · overall rate{" "}
+          <span className="text-zinc-200 font-semibold">{json.overall_rate}%</span>
         </p>
       </div>
 
       <div className="flex-1 bg-zinc-900 rounded-xl p-6 border border-zinc-800">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data} barCategoryGap="35%">
+          <BarChart data={json.by_ethnicity} barCategoryGap="35%">
             <CartesianGrid strokeDasharray="3 3" stroke="#3f3f46" />
-            <XAxis
-              dataKey="ethnicity"
-              stroke="#71717a"
-              tick={{ fill: "#a1a1aa", fontSize: 12 }}
-            />
-            <YAxis
-              stroke="#71717a"
-              tick={{ fill: "#a1a1aa" }}
-              tickFormatter={(v) => `${v}%`}
-              domain={[0, 15]}
-            />
+            <XAxis dataKey="ethnicity" stroke="#71717a" tick={{ fill: "#a1a1aa", fontSize: 12 }} />
+            <YAxis stroke="#71717a" tick={{ fill: "#a1a1aa" }} tickFormatter={(v) => `${v}%`} domain={[0, 15]} />
             <Tooltip
               contentStyle={{ background: "#18181b", border: "1px solid #3f3f46", borderRadius: 8 }}
               labelStyle={{ color: "#e4e4e7" }}
@@ -88,13 +67,13 @@ export default function ArrestBySuspicionSlide() {
               }}
             />
             <ReferenceLine
-              y={OVERALL_RATE}
+              y={json.overall_rate}
               stroke="#f43f5e"
               strokeDasharray="5 4"
-              label={{ value: `Overall ${OVERALL_RATE}%`, fill: "#f43f5e", fontSize: 11, position: "insideTopRight" }}
+              label={{ value: `Overall ${json.overall_rate}%`, fill: "#f43f5e", fontSize: 11, position: "insideTopRight" }}
             />
             <Bar dataKey="rate" radius={[4, 4, 0, 0]} label={<CustomLabel />}>
-              {data.map((row) => (
+              {json.by_ethnicity.map((row) => (
                 <Cell key={row.ethnicity} fill={BAR_COLORS[row.ethnicity] ?? "#6366f1"} />
               ))}
             </Bar>

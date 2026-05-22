@@ -1,3 +1,5 @@
+import stats from "@/public/data/summary_stats.json";
+
 export default function TitleSlide() {
   return (
     <div className="flex flex-col items-center justify-center h-full gap-6 px-12 text-center">
@@ -9,16 +11,16 @@ export default function TitleSlide() {
           Stop Data Analysis
         </h1>
         <p className="text-2xl text-zinc-400 font-light">
-          2023 – 2025 · 182,490 stops
+          {stats.year_range} · {stats.total_stops.toLocaleString()} stops
         </p>
       </div>
 
       <div className="mt-8 grid grid-cols-4 gap-6 text-sm">
         {[
-          { label: "Total Stops", value: "182,490" },
-          { label: "Pedestrian Stops", value: "131" },
-          { label: "Districts", value: "7" },
-          { label: "Years Covered", value: "3" },
+          { label: "Total Stops",      value: stats.total_stops.toLocaleString() },
+          { label: "Pedestrian Stops", value: stats.pedestrian_stops.toLocaleString() },
+          { label: "Districts",        value: stats.districts.toString() },
+          { label: "Years Covered",    value: stats.years_covered.toString() },
         ].map(({ label, value }) => (
           <div
             key={label}

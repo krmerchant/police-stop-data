@@ -1,0 +1,8 @@
+[
+  { "ethnicity": "Black",            "stops": 131812, "arrests": 7198, "rate": 5.46 },
+  { "ethnicity": "Hispanic/Latino",  "stops": 14650,  "arrests": 1280, "rate": 8.74 },
+  { "ethnicity": "White",            "stops": 18416,  "arrests": 337,  "rate": 1.83 },
+  { "ethnicity": "Other",            "stops": 771,    "arrests": 52,   "rate": 6.74 },
+  { "ethnicity": "Asian",            "stops": 1902,   "arrests": 20,   "rate": 1.05 },
+  { "ethnicity": "Am. Indian",       "stops": 64,     "arrests": 2,    "rate": 3.12 }
+]

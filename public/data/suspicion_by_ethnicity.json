@@ -1,0 +1,8 @@
+[
+  { "ethnicity": "Black",           "pSuspicion": 89.28, "pAll": 72.23 },
+  { "ethnicity": "Hispanic/Latino", "pSuspicion":  3.35, "pAll":  8.03 },
+  { "ethnicity": "White",           "pSuspicion":  2.30, "pAll": 10.09 },
+  { "ethnicity": "Multiple",        "pSuspicion":  1.23, "pAll":  1.13 },
+  { "ethnicity": "Asian",           "pSuspicion":  0.29, "pAll":  1.04 },
+  { "ethnicity": "Other",           "pSuspicion":  0.20, "pAll":  0.42 }
+]

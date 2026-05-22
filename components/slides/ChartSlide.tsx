@@ -10,21 +10,8 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-
-// Pedestrian stops (PEDESTRIAN=1) by year + ethnicity — n=131 total
-const pedestrianByYear = [
-  { year: "2023", Black: 19, White: 14, "Hispanic/Latino": 4 },
-  { year: "2024", Black: 43, White: 7,  "Hispanic/Latino": 3 },
-  { year: "2025", Black: 18, White: 5,  "Hispanic/Latino": 1 },
-];
-
-// Traffic stops (VEHICLE=1) by year + ethnicity — n=96,526 total
-// 2025 is partial-year data
-const trafficByYear = [
-  { year: "2023", Black: 23865, White: 6741, "Hispanic/Latino": 3682, Asian: 780 },
-  { year: "2024", Black: 22424, White: 4916, "Hispanic/Latino": 3814, Asian: 503 },
-  { year: "2025", Black: 13475, White: 2664, "Hispanic/Latino": 2067, Asian: 256 },
-];
+import pedestrianByYear from "@/public/data/pedestrian_by_year.json";
+import trafficByYear    from "@/public/data/traffic_by_year.json";
 
 const TOOLTIP_STYLE = {
   contentStyle: { background: "#18181b", border: "1px solid #3f3f46", borderRadius: 8 },
@@ -46,7 +33,7 @@ export default function ChartSlide() {
       <div>
         <h2 className="text-3xl font-bold text-white">Stops by Race & Year</h2>
         <p className="text-zinc-400 mt-1">
-          Pedestrian (PEDESTRIAN=1, n=131) vs Traffic (VEHICLE=1, n=96,526) · counts by ethnicity
+          Pedestrian (PEDESTRIAN=1) vs Traffic (VEHICLE=1) · counts by ethnicity
         </p>
       </div>
 

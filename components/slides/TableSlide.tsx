@@ -18,18 +18,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-
-// P(TRAFFIC_ARREST | ETHNICITY) — all 182,490 stops
-// "Multiple" excluded: it flags multi-person stops, not a true ethnicity group
-// "Unknown" excluded: no demographic signal
-const arrestRates = [
-  { ethnicity: "Black",            stops: 131812, arrests: 7198, rate: 5.46 },
-  { ethnicity: "Hispanic/Latino",  stops: 14650,  arrests: 1280, rate: 8.74 },
-  { ethnicity: "White",            stops: 18416,  arrests: 337,  rate: 1.83 },
-  { ethnicity: "Other",            stops: 771,    arrests: 52,   rate: 6.74 },
-  { ethnicity: "Asian",            stops: 1902,   arrests: 20,   rate: 1.05 },
-  { ethnicity: "Am. Indian",       stops: 64,     arrests: 2,    rate: 3.12 },
-];
+import arrestRates from "@/public/data/arrest_by_ethnicity.json";
 
 const BAR_COLORS: Record<string, string> = {
   "Black":           "#6366f1",
@@ -46,29 +35,18 @@ export default function TableSlide() {
       <div>
         <h2 className="text-3xl font-bold text-white">P(Traffic Arrest | Ethnicity)</h2>
         <p className="text-zinc-400 mt-1">
-          All 182,490 stops · <span className="text-zinc-500 text-sm">"Multiple" and "Unknown" excluded — see notes</span>
+          All stops · <span className="text-zinc-500 text-sm">"Multiple" and "Unknown" excluded — see notes</span>
         </p>
       </div>
 
       <div className="grid grid-cols-2 gap-6 flex-1">
-        {/* bar chart */}
         <div className="bg-zinc-900 rounded-xl p-5 border border-zinc-800 flex flex-col gap-3">
           <h3 className="text-lg font-semibold text-zinc-200">Arrest Rate (%)</h3>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={arrestRates}>
               <CartesianGrid strokeDasharray="3 3" stroke="#3f3f46" />
-              <XAxis
-                dataKey="ethnicity"
-                stroke="#71717a"
-                tick={{ fill: "#a1a1aa", fontSize: 11 }}
-                interval={0}
-              />
-              <YAxis
-                stroke="#71717a"
-                tick={{ fill: "#a1a1aa" }}
-                tickFormatter={(v) => `${v}%`}
-                domain={[0, 10]}
-              />
+              <XAxis dataKey="ethnicity" stroke="#71717a" tick={{ fill: "#a1a1aa", fontSize: 11 }} interval={0} />
+              <YAxis stroke="#71717a" tick={{ fill: "#a1a1aa" }} tickFormatter={(v) => `${v}%`} domain={[0, 10]} />
               <Tooltip
                 contentStyle={{ background: "#18181b", border: "1px solid #3f3f46", borderRadius: 8 }}
                 labelStyle={{ color: "#e4e4e7" }}
@@ -83,7 +61,6 @@ export default function TableSlide() {
           </ResponsiveContainer>
         </div>
 
-        {/* summary table */}
         <div className="bg-zinc-900 rounded-xl border border-zinc-700 overflow-auto flex flex-col p-5">
           <h3 className="text-lg font-semibold text-zinc-200 mb-4">Summary Table</h3>
           <Table>
@@ -102,10 +79,7 @@ export default function TableSlide() {
                   <TableCell className="text-zinc-300 text-right">{row.stops.toLocaleString()}</TableCell>
                   <TableCell className="text-zinc-300 text-right">{row.arrests.toLocaleString()}</TableCell>
                   <TableCell className="text-right">
-                    <span
-                      className="font-semibold"
-                      style={{ color: BAR_COLORS[row.ethnicity] ?? "#a1a1aa" }}
-                    >
+                    <span className="font-semibold" style={{ color: BAR_COLORS[row.ethnicity] ?? "#a1a1aa" }}>
                       {row.rate.toFixed(2)}%
                     </span>
                   </TableCell>
@@ -114,8 +88,8 @@ export default function TableSlide() {
             </TableBody>
           </Table>
           <div className="mt-auto pt-4 text-xs text-zinc-600 space-y-1">
-            <p><span className="text-zinc-500 font-medium">Excluded — "Multiple":</span> flags multi-person stops (n=2,067); not a demographic group. Inflated rate (26.95%) driven by group-incident charges.</p>
-            <p><span className="text-zinc-500 font-medium">Excluded — "Unknown":</span> no demographic signal (n=12,790).</p>
+            <p><span className="text-zinc-500 font-medium">Excluded — "Multiple":</span> flags multi-person stops; not a demographic group.</p>
+            <p><span className="text-zinc-500 font-medium">Excluded — "Unknown":</span> no demographic signal.</p>
           </div>
         </div>
       </div>

@@ -1,0 +1,9 @@
+[
+  { "id": "1D", "name": "First District",   "lat": 38.8941, "lng": -77.0020, "stops": 11341, "pct": 16.3 },
+  { "id": "2D", "name": "Second District",  "lat": 38.9205, "lng": -77.0494, "stops": 9293,  "pct": 13.3 },
+  { "id": "3D", "name": "Third District",   "lat": 38.9283, "lng": -77.0373, "stops": 11177, "pct": 16.0 },
+  { "id": "4D", "name": "Fourth District",  "lat": 38.9493, "lng": -77.0213, "stops": 8097,  "pct": 11.6 },
+  { "id": "5D", "name": "Fifth District",   "lat": 38.9131, "lng": -76.9835, "stops": 11636, "pct": 16.7 },
+  { "id": "6D", "name": "Sixth District",   "lat": 38.8718, "lng": -76.9816, "stops": 9019,  "pct": 12.9 },
+  { "id": "7D", "name": "Seventh District", "lat": 38.8518, "lng": -76.9563, "stops": 9227,  "pct": 13.2 }
+]

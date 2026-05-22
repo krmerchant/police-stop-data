@@ -7,23 +7,9 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
-  ReferenceLine,
 } from "recharts";
-
-// P(ETHNICITY | suspicion stop) vs P(ETHNICITY | all stops)
-// Suspicion defined as STOP_REASON_NONTICKET contains "Sus" — matches R script grepl("Sus", ...)
-// n=7,646 suspicion stops out of 182,490 total
-// "Unknown" excluded (no demographic signal)
-const data = [
-  { ethnicity: "Black",           pSuspicion: 89.28, pAll: 72.23 },
-  { ethnicity: "Hispanic/Latino", pSuspicion:  3.35, pAll:  8.03 },
-  { ethnicity: "White",           pSuspicion:  2.30, pAll: 10.09 },
-  { ethnicity: "Multiple",        pSuspicion:  1.23, pAll:  1.13 },
-  { ethnicity: "Asian",           pSuspicion:  0.29, pAll:  1.04 },
-  { ethnicity: "Other",           pSuspicion:  0.20, pAll:  0.42 },
-];
+import data from "@/public/data/suspicion_by_ethnicity.json";
 
 const TOOLTIP_STYLE = {
   contentStyle: { background: "#18181b", border: "1px solid #3f3f46", borderRadius: 8 },
@@ -61,17 +47,8 @@ export default function SuspicionSlide() {
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} barCategoryGap="25%" barGap={4}>
             <CartesianGrid strokeDasharray="3 3" stroke="#3f3f46" />
-            <XAxis
-              dataKey="ethnicity"
-              stroke="#71717a"
-              tick={{ fill: "#a1a1aa", fontSize: 12 }}
-            />
-            <YAxis
-              stroke="#71717a"
-              tick={{ fill: "#a1a1aa" }}
-              tickFormatter={(v) => `${v}%`}
-              domain={[0, 95]}
-            />
+            <XAxis dataKey="ethnicity" stroke="#71717a" tick={{ fill: "#a1a1aa", fontSize: 12 }} />
+            <YAxis stroke="#71717a" tick={{ fill: "#a1a1aa" }} tickFormatter={(v) => `${v}%`} domain={[0, 95]} />
             <Tooltip {...TOOLTIP_STYLE} />
             <Bar dataKey="pSuspicion" name="pSuspicion" fill="#6366f1" radius={[4, 4, 0, 0]} />
             <Bar dataKey="pAll"       name="pAll"       fill="#22d3ee" radius={[4, 4, 0, 0]} />
@@ -91,8 +68,8 @@ export default function SuspicionSlide() {
           </p>
         </div>
         <p className="text-zinc-600">
-          * "Suspicion stop" = <code className="text-zinc-500">STOP_REASON_NONTICKET</code> contains the substring{" "}
-          <code className="text-zinc-500">"Sus"</code> — captures{" "}
+          * "Suspicion stop" = <code className="text-zinc-500">STOP_REASON_NONTICKET</code> contains{" "}
+          <code className="text-zinc-500">"Sus"</code> · captures{" "}
           <em>"Suspicion of criminal activity (self-initiated)"</em> and any multi-reason entry including it.
         </p>
       </div>

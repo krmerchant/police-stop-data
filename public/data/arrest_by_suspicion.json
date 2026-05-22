@@ -1,0 +1,12 @@
+{
+  "overall_rate": 5.31,
+  "total_suspicion_stops": 7646,
+  "total_arrests": 406,
+  "by_ethnicity": [
+    { "ethnicity": "Hispanic/Latino", "stops": 256,  "arrests": 31,  "rate": 12.11 },
+    { "ethnicity": "Asian",           "stops": 22,   "arrests": 2,   "rate":  9.09 },
+    { "ethnicity": "Other",           "stops": 15,   "arrests": 1,   "rate":  6.67 },
+    { "ethnicity": "White",           "stops": 176,  "arrests": 10,  "rate":  5.68 },
+    { "ethnicity": "Black",           "stops": 6826, "arrests": 352, "rate":  5.16 }
+  ]
+}

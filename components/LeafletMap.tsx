@@ -4,18 +4,9 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import "leaflet-defaulticon-compatibility";
 import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
+import districtData from "@/public/data/stops_by_district.json";
 
-const districts = [
-  { id: "1D", name: "First District",   pos: [38.8941, -77.0020] as [number,number], stops: 11341, pct: 16.3 },
-  { id: "2D", name: "Second District",  pos: [38.9205, -77.0494] as [number,number], stops: 9293,  pct: 13.3 },
-  { id: "3D", name: "Third District",   pos: [38.9283, -77.0373] as [number,number], stops: 11177, pct: 16.0 },
-  { id: "4D", name: "Fourth District",  pos: [38.9493, -77.0213] as [number,number], stops: 8097,  pct: 11.6 },
-  { id: "5D", name: "Fifth District",   pos: [38.9131, -76.9835] as [number,number], stops: 11636, pct: 16.7 },
-  { id: "6D", name: "Sixth District",   pos: [38.8718, -76.9816] as [number,number], stops: 9019,  pct: 12.9 },
-  { id: "7D", name: "Seventh District", pos: [38.8518, -76.9563] as [number,number], stops: 9227,  pct: 13.2 },
-];
-
-const maxStops = Math.max(...districts.map(d => d.stops));
+const maxStops = Math.max(...districtData.map(d => d.stops));
 
 export default function LeafletMap() {
   return (
@@ -29,10 +20,10 @@ export default function LeafletMap() {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
       />
-      {districts.map(({ id, name, pos, stops, pct }) => (
+      {districtData.map(({ id, name, lat, lng, stops, pct }) => (
         <CircleMarker
           key={id}
-          center={pos}
+          center={[lat, lng]}
           radius={10 + (stops / maxStops) * 28}
           pathOptions={{ color: "#6366f1", fillColor: "#818cf8", fillOpacity: 0.75, weight: 2 }}
         >
